@@ -1,18 +1,26 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import {
+  HindVadodara_300Light,
+  HindVadodara_400Regular,
+  HindVadodara_500Medium,
+  HindVadodara_600SemiBold,
+  HindVadodara_700Bold,
+} from '@expo-google-fonts/hind-vadodara';
+import { Inter_500Medium, Inter_600SemiBold } from '@expo-google-fonts/inter';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+export default function RootLayout() {
+  const [loaded] = useFonts({
+    Inter_500Medium,
+    Inter_600SemiBold,
+    HindVadodara_300Light,
+    HindVadodara_400Regular,
+    HindVadodara_500Medium,
+    HindVadodara_600SemiBold,
+    HindVadodara_700Bold,
+  });
 
-SplashScreen.preventAutoHideAsync();
+  if (!loaded) return null; // TODO(Phase 8): keep the native splash visible while fonts load
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
-  );
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
